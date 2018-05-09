@@ -9,6 +9,7 @@ usage information and a listing of the available options please take a look at
 Build the binary with the following commands:
 
 ```
+go get
 go build
 go test
 ```
