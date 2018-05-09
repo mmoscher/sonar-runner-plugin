@@ -1,11 +1,8 @@
 FROM openjdk:8-jre-alpine
-MAINTAINER YPCloud <cloud@yp.ca>
+MAINTAINER mmoscher <marco.moscher@rwth-aachen.de>
 
 WORKDIR /opt/sonar
 RUN mkdir -p /opt/sonar/conf
-
-ENV SONAR_RUNNER_VERSION 2.4
-RUN wget http://repo1.maven.org/maven2/org/codehaus/sonar/runner/sonar-runner-dist/2.4/sonar-runner-dist-2.4.jar -O /opt/sonar/runner.jar
 
 ENV NODE_VERSION 6.13.0
 RUN addgroup -g 1000 node \
@@ -21,7 +18,7 @@ RUN addgroup -g 1000 node \
         libgcc \
         linux-headers \
         make \
-        python 
+        python
 # gpg keys listed at https://github.com/nodejs/node#release-team
 RUN for key in \
     94AE36675C464D64BAFA68DD7434390BDBE9B9C5 \
@@ -53,8 +50,13 @@ RUN for key in \
 
 RUN apk update && \
   apk add \
-    ca-certificates && \
+    ca-certificates unzip && \
   rm -rf /var/cache/apk/*
+
+ENV SONAR_RUNNER_VERSION 3.1
+RUN wget https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.1.0.1141-linux.zip -O /tmp/sonar.zip \
+    && unzip -p /tmp/sonar.zip sonar-scanner-3.1.0.1141-linux/lib/sonar-scanner-cli-3.1.0.1141.jar > /opt/sonar/runner.jar \
+    && rm /tmp/sonar.zip
 
 ADD sonar-runner-plugin /bin/
 ADD sonar-runner.properties.tmpl /opt/sonar/conf/sonar-runner.properties.tmpl
