@@ -115,7 +115,7 @@ func (p Plugin) buildRunnerProperties() error {
 
 func (p Plugin) execSonarRunner() error {
 	// run archive command
-	cmd := exec.Command("java", "-jar", "/opt/sonar/runner.jar", "-Drunner.home=/opt/sonar/")
+	cmd := exec.Command("java", "-jar", "/opt/sonar/runner.jar", "-Drunner.home=/opt/sonar/", "-Dproject.settings=/opt/sonar/conf/sonar-project.properties")
 	printCommand(cmd)
 	output, err := cmd.CombinedOutput()
 	printOutput(output)
