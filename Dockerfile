@@ -59,5 +59,5 @@ RUN wget https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-sc
     && rm /tmp/sonar.zip
 
 ADD sonar-runner-plugin /bin/
-ADD sonar-runner.properties.tmpl /opt/sonar/conf/sonar-runner.properties.tmpl
+ADD sonar-project.properties.tmpl /opt/sonar/conf/sonar-project.properties.tmpl
 ENTRYPOINT ["/bin/sonar-runner-plugin"]

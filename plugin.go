@@ -86,12 +86,12 @@ func (p Plugin) buildRunnerProperties() error {
 
 	p.Key = strings.Replace(p.Key, "/", ":", -1)
 
-	tmpl, err := template.ParseFiles("/opt/sonar/conf/sonar-runner.properties.tmpl")
+	tmpl, err := template.ParseFiles("/opt/sonar/conf/sonar-project.properties.tmpl")
 	if err != nil {
 		panic(err)
 	}
 
-	f, err := os.Create("/opt/sonar/conf/sonar-runner.properties")
+	f, err := os.Create("/opt/sonar/conf/sonar-project.properties")
 	defer f.Close()
 	if err != nil {
 		fmt.Println("Error creating file: ", err)
@@ -99,13 +99,13 @@ func (p Plugin) buildRunnerProperties() error {
 	}
 
 	if p.Debug {
-		err = tmpl.ExecuteTemplate(os.Stdout, "sonar-runner.properties.tmpl", p)
+		err = tmpl.ExecuteTemplate(os.Stdout, "sonar-project.properties.tmpl", p)
 		if err != nil {
 			panic(err)
 		}
 	}
 
-	err = tmpl.ExecuteTemplate(f, "sonar-runner.properties.tmpl", p)
+	err = tmpl.ExecuteTemplate(f, "sonar-project.properties.tmpl", p)
 	if err != nil {
 		panic(err)
 	}
