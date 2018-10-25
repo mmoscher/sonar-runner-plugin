@@ -53,9 +53,9 @@ RUN apk update && \
     ca-certificates unzip && \
   rm -rf /var/cache/apk/*
 
-ENV SONAR_RUNNER_VERSION 3.1
-RUN wget https://sonarsource.bintray.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.1.0.1141-linux.zip -O /tmp/sonar.zip \
-    && unzip -p /tmp/sonar.zip sonar-scanner-3.1.0.1141-linux/lib/sonar-scanner-cli-3.1.0.1141.jar > /opt/sonar/runner.jar \
+ENV SONAR_RUNNER_VERSION 3.2
+RUN wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-3.2.0.1227-linux.zip -O /tmp/sonar.zip \
+    && unzip -p /tmp/sonar.zip sonar-scanner-3.2.0.1227-linux/lib/sonar-scanner-cli-3.2.0.1227.jar > /opt/sonar/runner.jar \
     && rm /tmp/sonar.zip
 
 ADD sonar-runner-plugin /bin/
